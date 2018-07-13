@@ -1,5 +1,5 @@
 defmodule Calculus.RichardsonTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest Calculus
 
   test "richardson derivative gives a generator function that can be called for an x to get a derivative estimate at that point" do

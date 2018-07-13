@@ -10,7 +10,7 @@ defmodule Calculus.Newton do
 
   def newton_iterator(f, f_prime, start) do
     Stream.unfold(start, fn (x) ->
-      result = x - (f.(x) / f_prime.(x))
+      result = x - f.(x) / f_prime.(x)
       {result, result}
     end)
   end
