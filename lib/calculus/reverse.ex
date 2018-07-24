@@ -1,7 +1,8 @@
 defmodule Calculus.Reverse do
-  def reverse({[a,b], f}) do
+  def reverse({[a, b], f}) do
     fz = Calculus.zero_function(f)
-    reverse = fn(x) ->
+
+    reverse = fn x ->
       zero_fn = fz.(x)
       zero_prime = Calculus.derivative(zero_fn)
 
@@ -10,6 +11,6 @@ defmodule Calculus.Reverse do
       |> Calculus.converge()
     end
 
-    {[b,a], reverse}
+    {[b, a], reverse}
   end
 end

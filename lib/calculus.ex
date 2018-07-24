@@ -1,5 +1,4 @@
 defmodule Calculus do
-
   @epsilon 0.000001
 
   defdelegate find_zero(f, f_prime, start \\ @epsilon), to: Calculus.Newton, as: :newton_iterator
