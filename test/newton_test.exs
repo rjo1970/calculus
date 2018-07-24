@@ -15,4 +15,15 @@ defmodule Calculus.NewtonTest do
     assert_in_delta(result, -1.709975946676697, 0.000001)
   end
 
+  test "Creates a zero function based on a given function" do
+    epsilon = 0.000001
+    f_to_c = fn(f) -> (f - 32) / 1.8 end
+
+    zero_fn_at_neg_40 = Calculus.Newton.zero_function(f_to_c).(-40)
+
+    result = Calculus.find_zero(zero_fn_at_neg_40, Calculus.derivative(zero_fn_at_neg_40)) |> Calculus.converge(epsilon)
+
+    assert_in_delta(result, -40.0, epsilon)
+  end
+
 end

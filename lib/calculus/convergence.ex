@@ -22,8 +22,8 @@ defmodule Calculus.Convergence do
     :does_not_converge
   end
 
-  defp find_first([a, b]) do
-    b
+  defp find_first([a, _b]) do
+    a
   end
 
 end

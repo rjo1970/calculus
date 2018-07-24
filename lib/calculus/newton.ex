@@ -15,4 +15,14 @@ defmodule Calculus.Newton do
     end)
   end
 
+  def zero_function(f) do
+    fn(k) ->
+      fn(x) -> f.(x) - k end
+    end
+  end
+
+  def zero_function(f, k) do
+    zero_function(f).(k)
+  end
+
 end
