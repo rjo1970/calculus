@@ -6,4 +6,5 @@ defmodule Calculus do
   defdelegate derivative(f, delta \\ @epsilon), to: Calculus.Richardson, as: :richardson
   defdelegate converge(iterator, epsilon \\ 0.0000000000001), to: Calculus.Convergence
   defdelegate zero_function(f), to: Calculus.Newton
+  defdelegate reverse(tuple), to: Calculus.Reverse
 end
