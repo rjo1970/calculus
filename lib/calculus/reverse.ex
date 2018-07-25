@@ -13,4 +13,12 @@ defmodule Calculus.Reverse do
 
     {[b, a], reverse}
   end
+
+  def expand(eq_list) do
+    reversals =
+      eq_list
+      |> Enum.map(&reverse/1)
+
+    Map.merge(Map.new(reversals), Map.new(eq_list))
+  end
 end
