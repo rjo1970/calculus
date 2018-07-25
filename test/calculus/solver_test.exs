@@ -1,8 +1,10 @@
 defmodule Calculus.SolverTest do
   use ExUnit.Case, async: true
 
+  @subject Calculus.Solver
+
   test "Given a list of possible keys and a map, provide a list of undefined keys" do
-    assert Calculus.Solver.free_keys([:a, :b, :c, :d], %{b: 5, c: 3}) == MapSet.new([:a, :d])
+    assert @subject.free_keys([:a, :b, :c, :d], %{b: 5, c: 3}) == MapSet.new([:a, :d])
   end
 
   test "Given a problem and an expanded system of equations choose a next step" do
@@ -43,7 +45,7 @@ defmodule Calculus.SolverTest do
       {[:b, :c], fn b -> b + 3 end}
     ]
 
-    result = Calculus.Solver.solve(s_of_e, problem)
+    result = @subject.solve(s_of_e, problem)
 
     assert result == %{c: 88.0, b: 85.0, a: 84.0}
   end
@@ -56,7 +58,7 @@ defmodule Calculus.SolverTest do
       {[:b, :c], fn b -> b + 3 end}
     ]
 
-    result = Calculus.Solver.solve(s_of_e).(problem)
+    result = @subject.solve(s_of_e).(problem)
 
     assert result == %{c: 88.0, b: 85.0, a: 84.0}
   end
