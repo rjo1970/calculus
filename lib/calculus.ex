@@ -7,4 +7,6 @@ defmodule Calculus do
   defdelegate zero_function(f), to: Calculus.Newton
   defdelegate reverse(tuple), to: Calculus.Reverse
   defdelegate expand(eq_list), to: Calculus.Reverse
+  defdelegate solve(eq_list, problem), to: Calculus.Solver
+  defdelegate solve(eq_list), to: Calculus.Solver
 end

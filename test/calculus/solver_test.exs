@@ -33,5 +33,31 @@ defmodule Calculus.SolverTest do
     assert result == %{c: 88.0, b: 85.0, a: 84.0}
   end
 
+  test "Solve a system of equations" do
+    problem = %{c: 88.0}
+
+    s_of_e = [
+      {[:a, :b], fn(a) -> a + 1 end},
+      {[:b, :c], fn(b) -> b + 3 end}
+    ]
+
+    result = Calculus.Solver.solve(s_of_e, problem)
+
+    assert result == %{c: 88.0, b: 85.0, a: 84.0}
+  end
+
+  test "Partially apply a solver" do
+    problem = %{c: 88.0}
+
+    s_of_e = [
+      {[:a, :b], fn(a) -> a + 1 end},
+      {[:b, :c], fn(b) -> b + 3 end}
+    ]
+
+    result = Calculus.Solver.solve(s_of_e).(problem)
+
+    assert result == %{c: 88.0, b: 85.0, a: 84.0}
+  end
+
 
 end

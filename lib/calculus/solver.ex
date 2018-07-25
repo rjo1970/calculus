@@ -49,4 +49,14 @@ defmodule Calculus.Solver do
 
     step(next_key, next_problem, s_of_e)
   end
+
+  def solve(s_of_e, problem) do
+    expanded_eq = Calculus.expand(s_of_e)
+    next_key = next_step_key(problem, expanded_eq)
+    step(next_key, problem, expanded_eq)
+  end
+
+  def solve(s_of_e) do
+    fn(problem) -> solve(s_of_e, problem) end
+  end
 end
