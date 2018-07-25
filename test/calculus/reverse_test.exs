@@ -13,8 +13,8 @@ defmodule Calculus.ReverseTest do
 
   test "can exapand a system of equations" do
     sys_of_eq = [
-      {[:f, :c], fn(f) -> (f - 32) / 1.8 end},
-      {[:c, :k], fn(c) -> c + 273.15 end}
+      {[:f, :c], fn f -> (f - 32) / 1.8 end},
+      {[:c, :k], fn c -> c + 273.15 end}
     ]
 
     result = Calculus.Reverse.expand(sys_of_eq)

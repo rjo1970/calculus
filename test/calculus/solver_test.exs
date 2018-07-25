@@ -8,10 +8,11 @@ defmodule Calculus.SolverTest do
   test "Given a problem and an expanded system of equations choose a next step" do
     problem = %{c: 88.0}
 
-    s_of_e = Calculus.expand([
-      {[:a, :b], fn(a) -> a + 1 end},
-      {[:b, :c], fn(b) -> b + 3 end}
-    ])
+    s_of_e =
+      Calculus.expand([
+        {[:a, :b], fn a -> a + 1 end},
+        {[:b, :c], fn b -> b + 3 end}
+      ])
 
     result = Calculus.Solver.next_step_key(problem, s_of_e)
 
@@ -21,10 +22,11 @@ defmodule Calculus.SolverTest do
   test "Given a problem, a next step key, and a system of equations, solve the whole thing" do
     problem = %{c: 88.0}
 
-    s_of_e = Calculus.expand([
-      {[:a, :b], fn(a) -> a + 1 end},
-      {[:b, :c], fn(b) -> b + 3 end}
-    ])
+    s_of_e =
+      Calculus.expand([
+        {[:a, :b], fn a -> a + 1 end},
+        {[:b, :c], fn b -> b + 3 end}
+      ])
 
     next_key = [:c, :b]
 
@@ -37,8 +39,8 @@ defmodule Calculus.SolverTest do
     problem = %{c: 88.0}
 
     s_of_e = [
-      {[:a, :b], fn(a) -> a + 1 end},
-      {[:b, :c], fn(b) -> b + 3 end}
+      {[:a, :b], fn a -> a + 1 end},
+      {[:b, :c], fn b -> b + 3 end}
     ]
 
     result = Calculus.Solver.solve(s_of_e, problem)
@@ -50,14 +52,12 @@ defmodule Calculus.SolverTest do
     problem = %{c: 88.0}
 
     s_of_e = [
-      {[:a, :b], fn(a) -> a + 1 end},
-      {[:b, :c], fn(b) -> b + 3 end}
+      {[:a, :b], fn a -> a + 1 end},
+      {[:b, :c], fn b -> b + 3 end}
     ]
 
     result = Calculus.Solver.solve(s_of_e).(problem)
 
     assert result == %{c: 88.0, b: 85.0, a: 84.0}
   end
-
-
 end

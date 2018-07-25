@@ -1,5 +1,4 @@
 defmodule Calculus.Solver do
-
   def free_keys(list, map) do
     keys =
       map
@@ -16,13 +15,13 @@ defmodule Calculus.Solver do
 
     free =
       system_of_equations
-    |> all_variables()
-    |> free_keys(problem)
+      |> all_variables()
+      |> free_keys(problem)
 
     keys
-    |> Stream.map(fn([a,b]) -> {[a,b], !MapSet.member?(free, a) and MapSet.member?(free, b)} end)
-    |> Stream.filter(fn({_k, m}) -> m end)
-    |> Stream.map(fn({k, true}) -> k end)
+    |> Stream.map(fn [a, b] -> {[a, b], !MapSet.member?(free, a) and MapSet.member?(free, b)} end)
+    |> Stream.filter(fn {_k, m} -> m end)
+    |> Stream.map(fn {k, true} -> k end)
     |> Enum.take(1)
     |> List.flatten()
   end
@@ -40,7 +39,7 @@ defmodule Calculus.Solver do
 
   def step(step_key, problem, s_of_e) do
     f = s_of_e[step_key]
-    [a,b] = step_key
+    [a, b] = step_key
 
     fa = f.(problem[a])
 
@@ -57,6 +56,6 @@ defmodule Calculus.Solver do
   end
 
   def solve(s_of_e) do
-    fn(problem) -> solve(s_of_e, problem) end
+    fn problem -> solve(s_of_e, problem) end
   end
 end
