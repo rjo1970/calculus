@@ -33,29 +33,29 @@ defmodule Calculus.Solver do
     |> Enum.uniq()
   end
 
-  def step([], problem, _s_of_e) do
+  def step([], problem, _s_of_eq) do
     problem
   end
 
-  def step(step_key, problem, s_of_e) do
-    f = s_of_e[step_key]
-    [a, b] = step_key
+  def step(step_key, problem, s_of_eq) do
+    f = s_of_eq[step_key]
+    [given, provides] = step_key
 
-    fa = f.(problem[a])
+    solved = f.(problem[given])
 
-    next_problem = Map.put(problem, b, fa)
-    next_key = next_step_key(next_problem, s_of_e)
+    next_problem = Map.put(problem, provides, solved)
+    next_key = next_step_key(next_problem, s_of_eq)
 
-    step(next_key, next_problem, s_of_e)
+    step(next_key, next_problem, s_of_eq)
   end
 
-  def solve(s_of_e, problem) do
-    expanded_eq = Calculus.expand(s_of_e)
+  def solve(s_of_eq, problem) do
+    expanded_eq = Calculus.expand(s_of_eq)
     next_key = next_step_key(problem, expanded_eq)
     step(next_key, problem, expanded_eq)
   end
 
-  def solve(s_of_e) do
-    fn problem -> solve(s_of_e, problem) end
+  def solve(s_of_eq) do
+    fn problem -> solve(s_of_eq, problem) end
   end
 end

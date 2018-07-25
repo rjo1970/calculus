@@ -60,4 +60,23 @@ defmodule Calculus.SolverTest do
 
     assert result == %{c: 88.0, b: 85.0, a: 84.0}
   end
+
+  test "Find the circumference and diameter of a circle with area of 25cm^2" do
+    area = fn r -> :math.pi() * r * r end
+    circumference = fn r -> 2 * :math.pi() * r end
+    diameter = fn r -> 2 * r end
+
+    circle = [
+      {[:r, :area], area},
+      {[:r, :circumference], circumference},
+      {[:r, :diameter], diameter}
+    ]
+
+    problem = %{area: 25}
+
+    result = Calculus.solve(circle, problem)
+
+    assert_in_delta result[:circumference], 17.724, 0.001
+    assert_in_delta result[:diameter], 5.641, 0.001
+  end
 end
