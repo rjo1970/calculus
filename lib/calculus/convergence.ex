@@ -6,7 +6,7 @@ defmodule Calculus.Convergence do
     |> Stream.filter(fn x -> norm(x) < epsilon end)
     |> Enum.take(1)
     |> List.flatten()
-    |> find_first()
+    |> find()
   end
 
   defp framed_as_pairs(stream) do
@@ -17,11 +17,15 @@ defmodule Calculus.Convergence do
     abs(a - b)
   end
 
-  defp find_first([]) do
+  def norm([x]) do
+    x
+  end
+
+  defp find([]) do
     :does_not_converge
   end
 
-  defp find_first([a, _b]) do
-    a
+  defp find([_a, b]) do
+    b
   end
 end
