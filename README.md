@@ -1,6 +1,8 @@
 # Calculus
 
-**TODO: Add description**
+A System of Equations Solver.  Toy calculus app with floating point limitations, noisy derivatives and a real disdain for imaginary numbers.
+
+"Try it before you fly it.  No warranty expressed or implied.  Any truthful calculations are probably an accident.  May cause hair loss."
 
 ## Installation
 
@@ -18,4 +20,3 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/calculus](https://hexdocs.pm/calculus).
-
