@@ -19,11 +19,23 @@ defmodule Calculus.Solver do
       |> free_keys(problem)
 
     keys
-    |> Stream.map(fn [a, b] -> {[a, b], !MapSet.member?(free, a) and MapSet.member?(free, b)} end)
+    |> Stream.map(fn [a, b] -> {[a, b], is_matching?(free, [a, b])} end)
     |> Stream.filter(fn {_k, m} -> m end)
     |> Stream.map(fn {k, true} -> k end)
     |> Enum.take(1)
     |> List.flatten()
+  end
+
+  defp is_matching?(free, [a,b]) do
+    if is_list(a) do
+      with free_members <- a |> MapSet.new() |> MapSet.intersection(free),
+           complete <- free_members == MapSet.new()
+           do
+              complete and MapSet.member?(free, b)
+           end
+    else
+      !MapSet.member?(free, a) and MapSet.member?(free, b)
+    end
   end
 
   defp all_variables(s_of_eq) do
@@ -37,11 +49,24 @@ defmodule Calculus.Solver do
     problem
   end
 
-  def step(step_key, problem, s_of_eq) do
+  def step([given, provides] = step_key, problem, s_of_eq) do
     f = s_of_eq[step_key]
-    [given, provides] = step_key
 
     solved = f.(problem[given])
+
+    next_problem = Map.put(problem, provides, solved)
+    next_key = next_step_key(next_problem, s_of_eq)
+
+    step(next_key, next_problem, s_of_eq)
+  end
+
+  def step(step_key, problem, s_of_eq) do
+    given = step_key |> Enum.take(length(step_key) - 1)
+    provides = step_key |> Enum.drop(length(step_key) - 1) |> Enum.take(1) |> hd()
+    key = [given, provides]
+    f = s_of_eq[key]
+    args = given |> Enum.map(fn(x) -> problem[x] end)
+    solved = apply(f, args)
 
     next_problem = Map.put(problem, provides, solved)
     next_key = next_step_key(next_problem, s_of_eq)

@@ -15,7 +15,7 @@ defmodule Calculus.Newton do
   end
 
   defp not_zero(x) do
-    if (x == 0.0) do
+    if x == 0.0 do
       0.00001
     else
       x

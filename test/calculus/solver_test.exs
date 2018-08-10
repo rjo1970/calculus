@@ -81,4 +81,20 @@ defmodule Calculus.SolverTest do
     assert_in_delta result[:circumference], 17.724, 0.001
     assert_in_delta result[:diameter], 5.641, 0.001
   end
+
+  test "Find the volume of a cylinder given the radius of the top and bottom circles is 32cm and its height is 5cm" do
+    area = fn r -> :math.pi() * r * r end
+    volume = fn a, h -> a * h end
+
+    cylinder = [
+      {[:r, :area], area},
+      {[[:area, :height], :volume], volume}
+    ]
+
+    problem = %{height: 5, r: 32}
+
+    result = Calculus.solve(cylinder, problem)
+
+    assert_in_delta(result[:volume], 16084.954, 0.001)
+  end
 end

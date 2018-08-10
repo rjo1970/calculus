@@ -29,13 +29,15 @@ defmodule Calculus.ReverseTest do
     f = fn x -> 2 * x * x + 3 * x - 5 end
     {_, g} = Calculus.reverse({[:f, :g], f})
 
-    result = 1..n
-    |> Stream.map(f)
-    |> Stream.map(g)
-    |> Enum.take(n)
+    result =
+      1..n
+      |> Stream.map(f)
+      |> Stream.map(g)
+      |> Enum.take(n)
 
-    assert result == 1..n
-    |> Stream.map(fn(x) -> x + 0.0 end)
-    |> Enum.take(n)
+    assert result ==
+             1..n
+             |> Stream.map(fn x -> x + 0.0 end)
+             |> Enum.take(n)
   end
 end
